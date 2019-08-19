@@ -4,6 +4,12 @@ module m2bis(
 	input wire	KEY0,		//board button with weak pull-up resistor, normally logical ONE
 	output wire	[2:0]LED,	//board LEDs
 	
+	//FTDI serial port signals
+	input wire	FTDI_BD0,	//from FTDI, RxD
+	output wire FTDI_BD1,	//to FTDI, TxD
+	input wire	FTDI_BD2, 	//from FTDI, RTS
+	output wire FTDI_BD3, 	//to FTDI, CTS
+	
 	//below are signals unused in project but 
 	//they exist on marsohod2bis board
 	
@@ -32,12 +38,6 @@ module m2bis(
 	output wire SDRAM_RAS,
 	output wire SDRAM_CAS,
 	output wire SDRAM_WE,
-	
-	//FTDI serial port signals
-	input wire	FTDI_BD0,	//from FTDI, RxD
-	output wire FTDI_BD1,	//to FTDI, TxD
-	input wire	FTDI_BD2, 	//from FTDI, RTS
-	output wire FTDI_BD3, 	//to FTDI, CTS
 	
 	//serial flash interface
 	output wire DCLK,
@@ -124,5 +124,6 @@ always @( posedge clk12Mhz )
 	else
 	if( state==STATE_SEND_CHAR )
 		message_bit_index <= message_bit_index+8;
+
 
 endmodule
