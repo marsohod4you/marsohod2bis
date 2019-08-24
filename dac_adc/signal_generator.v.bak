@@ -1,0 +1,52 @@
+
+module signal_generator(
+	input wire clk,
+	input wire [2:0]selector,
+	output wire [7:0]signal
+);
+
+reg [5:0]addr;
+always @(posedge clk)
+	addr <= addr + 1;
+
+wire [7:0]s_meandr;
+rom #(.MIF_FILE("./python/meandr.mif")) rom_inst(
+	.address( addr ),
+	.clock( clk ),
+	.q(s_meandr)
+);
+
+wire [7:0]s_saw1;
+rom #(.MIF_FILE("./python/saw1.mif")) rom_inst(
+	.address( addr ),
+	.clock( clk ),
+	.q(s_saw1)
+);
+
+wire [7:0]s_saw2;
+rom #(.MIF_FILE("./python/saw2.mif")) rom_inst(
+	.address( addr ),
+	.clock( clk ),
+	.q(s_saw2)
+);
+
+wire [7:0]s_saw3;
+rom #(.MIF_FILE("./python/saw3.mif")) rom_inst(
+	.address( addr ),
+	.clock( clk ),
+	.q(s_saw2)
+);
+
+reg [7:0]s_out;
+always @( posedge clk )
+	case( selector )
+		0: s_out <= s_meandr;
+		0: s_out <= s_saw1;
+		0: s_out <= s_saw2;
+	default:
+			s_out <= s_saw3;
+	endcase
+
+assign signal = s_out;
+
+endmodule
