@@ -1,4 +1,4 @@
-module seg4x7_assci(
+module seg4x7_ascii(
 	input		wire	clk,			// 100MHZ
 	input		wire	[31:0] in,
 	output	reg	[3:0] digit_sel,

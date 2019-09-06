@@ -80,7 +80,7 @@ always @( posedge CLK100MHZ )
 
 wire [3:0]s1_digit_sel;
 wire [7:0]s1_out;
-seg4x7_assci seg4x7_ascci_instance(
+seg4x7_assii seg4x7_ascii_instance(
 	.clk( CLK100MHZ ),
 	.in( show_string ),
 	.digit_sel( s1_digit_sel ),
